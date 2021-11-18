@@ -18,3 +18,25 @@ Update the App ID in the authorizer in Terraform and run "terraform apply". Now 
 
 ### Step 5 (Bonus):
 Now, allow a user to upload (small) files to an S3 bucket, verifying their permission to do so by checking the prefix of the file against a list of their groups.
+
+
+# Solution
+- Clone the code from the references repository
+- Modify the file `variables.tf` to get a unique prefix (used: `7875be2c-assignment-6`) for your resources
+- Deploy the resources via terraform
+    - Init terraform with  `terraform init`
+    - Deploy the resources with `terraform apply`
+- Generate an application in Gitalb with given requirements
+- Save the application id and the secret in the according files
+- Update the app id in the authorizer in terraform
+- Update the redirect url in the demo.py script
+- Update the redirect url in the gitlab application settings
+- Apply the changes via `terraform apply`
+
+# Used resources
+- API Gateway: `7875be2c-assignment-6-example-http-api`
+- Lambda: `arn:aws:lambda:eu-central-1:145214354801:function:7875be2c-assignment-6_jwt_example`
+- IAM
+    - Role: `7875be2c-assignment-5_assignment_6`
+    - Policy: `7875be2c-assignment-6_assignment_6-20211118141631402300000001`
+- Endpoint: https://o5260xkl6b.execute-api.eu-central-1.amazonaws.com/prod
