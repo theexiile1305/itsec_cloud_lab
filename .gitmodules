@@ -1,0 +1,3 @@
+[submodule "05_lab/aws_list_all"]
+	path = 05_lab/aws_list_all
+	url = git@github.com:JohannesEbke/aws_list_all.git

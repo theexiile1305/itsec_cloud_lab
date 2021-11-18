@@ -1,0 +1,29 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "ses:SendEmail",
+                "iam:PutUserPolicy",
+                "iam:ListUserPolicies",
+                "logs:CreateLogGroup"
+            ],
+            "Resource": [
+                "arn:aws:ses:eu-central-1:145214354801:identity/michael.fuchs@hm.edu",
+                "arn:aws:logs:eu-central-1:145214354801:*",
+                "arn:aws:iam::145214354801:user/7875be2c"
+            ]
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:eu-central-1:145214354801:log-group:/aws/lambda//7875be2c-assignment-4:*"
+        }
+    ]
+}
