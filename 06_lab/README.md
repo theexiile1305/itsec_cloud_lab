@@ -20,7 +20,7 @@ Update the App ID in the authorizer in Terraform and run "terraform apply". Now 
 Now, allow a user to upload (small) files to an S3 bucket, verifying their permission to do so by checking the prefix of the file against a list of their groups.
 
 
-# Solution
+## Solution
 - Clone the code from the references repository
 - Modify the file `variables.tf` to get a unique prefix (used: `7875be2c-assignment-6`) for your resources
 - Deploy the resources via terraform
@@ -33,10 +33,31 @@ Now, allow a user to upload (small) files to an S3 bucket, verifying their permi
 - Update the redirect url in the gitlab application settings
 - Apply the changes via `terraform apply`
 
-# Used resources
+### Bonus 
+- Create a execution role `7875be2c-assignment-6_jwt_s3-role-645nuafc` for the lambda function `7875be2c-assignment-6_jwt_s3`
+- Attach the given policy `7875be2c-assignment-6_jwt_s3` to the role `7875be2c-assignment-6_jwt_s3-role-645nuafc`
+- Create an lambda function `7875be2c-assignment-6_jwt_s3` with the given code `lambda_function_bonus.py`
+- Attach the service role `7875be2c-assignment-6_jwt_s3-role-645nuafc` to the lambda function `7875be2c-assignment-6_jwt_s3`
+- Create a POST-Route for invoking the bonus exercise
+- Attach the authorizer `LRZ` to both resources in the API-Gateway
+- Attach the integration lambda function `7875be2c-assignment-6_jwt_s3` to the just created route
+- Create a s3 bucket `7875be2c-assignment-6` for saving the files
+
+## Used resources
 - API Gateway: `7875be2c-assignment-6-example-http-api`
 - Lambda: `arn:aws:lambda:eu-central-1:145214354801:function:7875be2c-assignment-6_jwt_example`
+- LogGroup: `arn:aws:logs:eu-central-1:145214354801:log-group:/aws/lambda/7875be2c-assignment-6_jwt:*`
 - IAM
     - Role: `7875be2c-assignment-5_assignment_6`
     - Policy: `7875be2c-assignment-6_assignment_6-20211118141631402300000001`
+- Endpoint: https://o5260xkl6b.execute-api.eu-central-1.amazonaws.com/prod
+
+### extra resources for bonus exercise
+- API Gateway: `7875be2c-assignment-6-example-http-api`
+- Lambda: `arn:aws:lambda:eu-central-1:145214354801:function:7875be2c-assignment-6_jwt_s3`
+- LogGroup: `arn:aws:logs:eu-central-1:145214354801:log-group:/aws/lambda/7875be2c-assignment-6_jwt_s3:*`
+- IAM
+    - Role: `arn:aws:iam::145214354801:role/service-role/7875be2c-assignment-6_jwt_s3-role-645nuafc`
+    - Policy: `arn:aws:iam::145214354801:policy/service-role/AWSLambdaBasicExecutionRole-b2e2f7ea-ca6d-4e62-9e17-c247fcc4b21e`
+- s3 Bucket: `arn:aws:s3:::7875be2c-assignment-6`
 - Endpoint: https://o5260xkl6b.execute-api.eu-central-1.amazonaws.com/prod

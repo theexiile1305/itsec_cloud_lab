@@ -1,0 +1,26 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "logs:CreateLogGroup"
+            ],
+            "Resource": [
+                "arn:aws:logs:eu-central-1:145214354801:*",
+                "arn:aws:s3:::7875be2c-assignment-6/*"
+            ]
+        },
+        {
+            "Sid": "VisualEditor1",
+            "Effect": "Allow",
+            "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+            ],
+            "Resource": "arn:aws:logs:eu-central-1:145214354801:log-group:/aws/lambda/7875be2c-assignment-6_jwt_s3:*"
+        }
+    ]
+}
