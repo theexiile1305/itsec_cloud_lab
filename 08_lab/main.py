@@ -33,11 +33,11 @@ def lambda_handler(event, context):
 
         return {
             "statusCode": 200,
-            "body": "You've granted access!"
+            "body": "You've been granted access!"
         }
     else:
         print("Sorry, I cannot give access to you reqeusted resource!")
         return {
             "statusCode": 401,
-            "body": "You've not allowed to access!"
+            "body": "You've not been allowed to access!"
         }
