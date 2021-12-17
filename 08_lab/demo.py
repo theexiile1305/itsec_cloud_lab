@@ -3,7 +3,7 @@ from requests.structures import CaseInsensitiveDict
 import openid_connect
 import requests
 
-target_url = "https://j8cqrsgtxa.execute-api.eu-central-1.amazonaws.com/prod"
+target_url = "https://g749hn3u5k.execute-api.eu-central-1.amazonaws.com/prod"
 redirect_uri = "http://localhost:8080"
 
 c = openid_connect.connect(
@@ -21,8 +21,6 @@ x = c.request_token(
     code=code
 )
 
-print(x.id_token)
-
 headers = CaseInsensitiveDict()
 headers["Accept"] = "application/json"
 headers["Content-Type"] = "application/json"
@@ -30,7 +28,11 @@ headers["Authorization"] = x.id_token
 
 resp = requests.post(
     url=target_url,
-    headers=headers
+    headers=headers,
+    json={
+        "blob": "RmFuY3kgQ29udGVudCE=",
+        "email": "michael.fuchs@hm.edu"
+    }
 )
 
 print("status of response: " + str(resp.status_code))

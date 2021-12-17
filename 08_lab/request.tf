@@ -1,21 +1,21 @@
 data "archive_file" "arch-7875be2c-assignment-8" {
   type             = "zip"
-  source_file      = "main.py"
+  source_file      = "request.py"
   output_file_mode = "0666"
-  output_path      = "7875be2c-assignment-8.zip"
+  output_path      = "request.zip"
 }
 
-resource "aws_lambda_function" "lambda-7875be2c-assignment-8" {
+resource "aws_lambda_function" "request-7875be2c-assignment-8" {
   filename         = data.archive_file.arch-7875be2c-assignment-8.output_path
   source_code_hash = data.archive_file.arch-7875be2c-assignment-8.output_base64sha256
-  function_name    = "lambda-7875be2c-assignment-8"
+  function_name    = "request-7875be2c-assignment-8"
   role             = aws_iam_role.iam-7875be2c-assignment-8.arn
-  handler          = "main.lambda_handler"
+  handler          = "request.lambda_handler"
   runtime          = "python3.9"
   tags = {
     Name       = "7875be2c"
     user       = "7875be2c"
-    assignment = "8"
+    assignment = "8-9"
   }
 }
 
@@ -25,7 +25,7 @@ resource "aws_apigatewayv2_api" "apig-7875be2c-assignment-8" {
   tags = {
     Name       = "7875be2c"
     user       = "7875be2c"
-    assignment = "8"
+    assignment = "8-9"
   }
 }
 
@@ -45,7 +45,7 @@ resource "aws_apigatewayv2_integration" "integration-7875be2c-assignment-8" {
   integration_type   = "AWS_PROXY"
   description        = "Lambda JWT authentication"
   integration_method = "POST"
-  integration_uri    = aws_lambda_function.lambda-7875be2c-assignment-8.invoke_arn
+  integration_uri    = aws_lambda_function.request-7875be2c-assignment-8.invoke_arn
 }
 
 resource "aws_apigatewayv2_route" "route-7875be2c-assignment-8" {
@@ -62,7 +62,7 @@ resource "aws_apigatewayv2_stage" "prod" {
   tags = {
     Name       = "7875be2c"
     user       = "7875be2c"
-    assignment = "8"
+    assignment = "8-9"
   }
 }
 
@@ -84,22 +84,25 @@ resource "aws_iam_role" "iam-7875be2c-assignment-8" {
   tags = {
     Name       = "7875be2c"
     user       = "7875be2c"
-    assignment = "8"
+    assignment = "8-9"
   }
 }
 
-resource "aws_iam_role_policy" "sqs-7875be2c-assignment-8" {
-  name = "sqs-7875be2c-assignment-8"
+resource "aws_iam_role_policy" "s3-7875be2c-assignment-8" {
+  name = "s3-7875be2c-assignment-8"
   role = aws_iam_role.iam-7875be2c-assignment-8.id
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
       {
         Action = [
-          "sqs:SendMessage",
+          "s3:PutObject*"
         ]
-        Effect   = "Allow"
-        Resource = "arn:aws:sqs:eu-central-1:145214354801:sqs-7875be2c-assignment-8.fifo"
+        Effect = "Allow"
+        Resource = [
+          "arn:aws:s3:::bucket-7875be2c-assignment-8/request",
+          "arn:aws:s3:::bucket-7875be2c-assignment-8/request/*"
+        ]
       },
     ]
   })
@@ -110,10 +113,10 @@ resource "aws_iam_role_policy_attachment" "policy-7875be2c-assignment-8" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-resource "aws_lambda_permission" "lambda_permission-7875be2c-assignment-8" {
+resource "aws_lambda_permission" "request-permission-7875be2c-assignment-8" {
   statement_id  = "AllowMyDemoAPIInvoke"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.lambda-7875be2c-assignment-8.function_name
+  function_name = aws_lambda_function.request-7875be2c-assignment-8.function_name
   principal     = "apigateway.amazonaws.com"
   source_arn    = "${aws_apigatewayv2_api.apig-7875be2c-assignment-8.execution_arn}/*/$default"
 }
