@@ -3,7 +3,7 @@ from requests.structures import CaseInsensitiveDict
 import openid_connect
 import requests
 
-target_url = "https://g749hn3u5k.execute-api.eu-central-1.amazonaws.com/prod"
+target_url = "https://me5cbw4gt5.execute-api.eu-central-1.amazonaws.com/prod"
 redirect_uri = "http://localhost:8080"
 
 c = openid_connect.connect(
