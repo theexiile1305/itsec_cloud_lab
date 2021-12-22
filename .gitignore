@@ -97,6 +97,8 @@ terraform.rc
 .history
 .ionide
 
+*.zip
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,linux,terraform
 
 03_lab/s3_sync
